@@ -10,6 +10,7 @@ interface filter {
 }
 
 interface logs {
+  LOG_ID: number
   SESSION_ID: string
   LOG_LEVEL: string
   URL: string
@@ -20,6 +21,6 @@ interface logs {
   CLIENT_IP?: string
   REMOTE_IP?: string
   textBlock?: string[]
-  css?: {}
+  cssBlock?: any[]
   contentBlock?: any[]
 }

@@ -1,6 +1,6 @@
-import log from "loglevel";
-import remote from "./remoteLogging";
-import { v4 as uuidv4 } from "uuid";
+import log from "loglevel"
+import remote from "./remoteLogging"
+import { v4 as uuidv4 } from "uuid"
 // ⇨ '9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d'
 
 // var originalFactory = log.methodFactory
@@ -16,12 +16,13 @@ import { v4 as uuidv4 } from "uuid";
 //   }
 // }
 // log.setLevel(log.getLevel()); // Be sure to call setLevel method in order to apply plugin
-const uuid = uuidv4();
+const uuid = uuidv4()
 
 const customJSON = (log: any) => {
   // console.log(log)
   // const { userAgent } = navigator
   const newLog: logs = {
+    LOG_ID: -1,
     SESSION_ID: uuid,
     LOG_LEVEL: log.level.label,
     URL: window.location.href,
@@ -31,9 +32,9 @@ const customJSON = (log: any) => {
     TIMESTAMP: log.timestamp,
     // userAgent: userAgent, // will be added through backend, read from the reuqest
     // complex: "test" + log.complex,
-  };
-  return newLog;
-};
+  }
+  return newLog
+}
 
 const loggerOptions = {
   url: "http://localhost:8080/logger",
@@ -41,7 +42,7 @@ const loggerOptions = {
   headers: { "Content-Type": "application/json" },
   token: "",
   onUnauthorized: (failedToken: any) => {
-    console.log("failed token", failedToken);
+    console.log("failed token", failedToken)
   },
   timeout: 0,
   interval: 1000,
@@ -60,16 +61,16 @@ const loggerOptions = {
   timestamp: () => new Date().toISOString(),
   // format: remote.plain,
   format: customJSON,
-};
+}
 
 //  log.enableAll();
-remote.apply(log, loggerOptions);
+remote.apply(log, loggerOptions)
 
-log.setLevel("trace");
+log.setLevel("trace")
 
-// log.info("Message one", ["1", 2, { 3: 4 }], { test: "some string", inObj: "content" });
-// // log.warn("Message two");
+// log.info("Message one", ["1", 2, { 3: 4 }], { test: "some string", inObj: "content" })
+// log.warn("Message two")
 
-// log.info("testmessage", "sssion");
+// log.info("testmessage", "sssion")
 
-// log.debug("complex message: %o ", loggerOptions);
+// log.debug("complex message: %o ", loggerOptions)
