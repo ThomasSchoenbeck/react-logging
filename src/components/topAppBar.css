@@ -1,0 +1,7 @@
+.MuiBreadcrumbs-ol a {
+  color: white;
+  text-decoration: none;
+}
+.MuiBreadcrumbs-ol a:hover {
+  text-decoration: underline;
+}

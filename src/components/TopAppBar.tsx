@@ -5,6 +5,12 @@ import Toolbar from "@mui/material/Toolbar"
 import Typography from "@mui/material/Typography"
 import IconButton from "@mui/material/IconButton"
 import MenuIcon from "@mui/icons-material/Menu"
+import { NavContext } from "../context/navContext"
+import Breadcrumbs from "@mui/material/Breadcrumbs"
+import { Link } from "react-router-dom"
+
+import "./topAppBar.css"
+import { useEffect, useState } from "react"
 
 const drawerWidth = 240
 
@@ -70,9 +76,28 @@ export default function TopAppBar(props: Props) {
         >
           <MenuIcon />
         </IconButton>
-        <Typography variant="h6" noWrap component="div">
+        {/* <Typography variant="h6" noWrap component="div">
           Mini variant drawer
-        </Typography>
+        </Typography> */}
+        <NavContext.Consumer>
+          {(value) => (
+            <Breadcrumbs aria-label="breadcrumb">
+              {value.activeRoute.map((e, i) => (
+                <>
+                  {i < value.activeRoute.length - 1 ? (
+                    <Link key={"routeLink-" + e} to={value.activeRoute.slice(0, i).join("/") + "/" + e} onClick={() => value.setActiveRoute([...value.activeRoute.slice(0, i), e])}>
+                      <Typography variant="h6" noWrap component="div">
+                        {e === "apps" ? "Applications" : e === "logs" ? "Logs" : e === "emails" ? "Email Templates" : e}
+                      </Typography>
+                    </Link>
+                  ) : (
+                    <span style={{ color: "lightblue" }}>{e === "apps" ? "Applications" : e === "logs" ? "Logs" : e === "emails" ? "Email Templates" : e}</span>
+                  )}
+                </>
+              ))}
+            </Breadcrumbs>
+          )}
+        </NavContext.Consumer>
       </Toolbar>
     </AppBar>
   )

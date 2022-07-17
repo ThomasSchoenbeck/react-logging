@@ -9,6 +9,13 @@ interface filter {
   value: any
 }
 
+interface apps {
+  APP_ID: string
+  APP_DESC: string | null
+  APP_NAME: string
+  APP_LOGO?: File
+}
+
 interface logs {
   LOG_ID: number
   SESSION_ID: string

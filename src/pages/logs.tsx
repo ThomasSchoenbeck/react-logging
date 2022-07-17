@@ -3,7 +3,7 @@ import { createPrefixGroup, loggingGroupProps } from "../loggingPrefixes"
 import log from "loglevel"
 import Expander from "../components/expander"
 import FlexTest from "../components/flexTest"
-import { CircularProgress } from "@mui/material"
+import { CircularProgress, Container } from "@mui/material"
 import InfiniteScroll from "react-infinite-scroll-component"
 
 const prefix = ["Logs", "#75AB44"]
@@ -21,6 +21,13 @@ export default function Logs() {
 
   const [pageNum, setPageNum] = useState<number>(1)
 
+  useEffect(() => {
+    console.log(...p.p, "mount")
+
+    return () => {
+      console.log(...p.p, "unmount")
+    }
+  }, [])
   useEffect(() => {
     setPageNum(1)
   }, [selectedFilter])
@@ -79,8 +86,10 @@ export default function Logs() {
 
   useEffect(() => {
     if (pageNum === 1) {
+      console.log(...p.p, "getLogs", pageNum)
       getLogs()
     } else if (pageNum > 1) {
+      console.log(...p.p, "getLogs add", pageNum)
       getLogs(true)
     }
   }, [pageNum])
@@ -155,117 +164,117 @@ export default function Logs() {
   }
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <div style={{ width: "80%" }}>
-          <h3>Log Window</h3>
+    <div className="App-header">
+      {/* <header className="App-header"> */}
+      <Container>
+        <h3>Log Window</h3>
 
-          {/* <FlexTest /> */}
+        {/* <FlexTest /> */}
 
-          <div
-            style={{
-              width: "100%",
-              margin: "20px auto",
-              height: 23,
-              display: "flex",
-              gap: 8,
-              fontSize: "14px",
-              justifyContent: "flex-start",
-            }}
-          >
-            {selectedFilter.length > 0 &&
-              selectedFilter.map((sf) => (
-                <span style={{ background: "yellow", borderRadius: "3px 3px 3px 3px", padding: "2px", color: "black" }}>
-                  {sf.field}: {sf.value}
-                </span>
-              ))}
-          </div>
-
-          <div style={{ border: "2px solid white", padding: 20, minWidth: "100%", width: "80%", margin: "0 auto" }}>
-            <InfiniteScroll
-              dataLength={newList.length} //This is important field to render the next data
-              next={() => setPageNum(pageNum + 1)}
-              hasMore={hasMore}
-              loader={
-                <div style={{ display: "flex", justifyContent: "center", margin: 50 }}>
-                  <CircularProgress />
-                </div>
-              }
-              endMessage={
-                <p style={{ textAlign: "center" }}>
-                  <b>Yay! You have seen it all</b>
-                </p>
-              }
-            >
-              {newList.map((e, i) => (
-                <div
-                  key={i + e.LOG_ID + "-log"}
-                  style={{
-                    textAlign: "left",
-                    fontSize: "12px",
-                    width: "100%",
-                    // display: "inline-block",
-                    display: "flex",
-                    alignItems: "flex-start",
-                    flexWrap: "wrap",
-                    marginBottom: 10,
-                  }}
-                >
-                  <span key={e.LOG_ID + "-logid"} style={{ flex: 1, maxWidth: "45px" }}>
-                    [{e.LOG_ID}]
-                  </span>
-                  <span key={e.LOG_ID + "-timestamp"} style={{ flex: 1, maxWidth: "165px" }}>
-                    [{e.TIMESTAMP.toString()}]&nbsp;
-                  </span>
-                  <span key={e.LOG_ID + "-loglevel"} style={{ flex: 1, maxWidth: "50px" }}>
-                    <a href="#" className="logLevelLink" onClick={() => handleClick("LOG_LEVEL", e.LOG_LEVEL.toUpperCase())}>
-                      {e.LOG_LEVEL.toUpperCase()}
-                    </a>
-                    :&nbsp;
-                  </span>
-                  <span key={e.LOG_ID + "-session_id"} style={{ flex: 1, maxWidth: "250px" }}>
-                    <a href="#" className="logSessionIDLink" onClick={() => handleClick("SESSION_ID", e.SESSION_ID)}>
-                      {e.SESSION_ID}
-                    </a>
-                    &nbsp;
-                  </span>
-                  {/* <span key={e.LOG_ID + "-textblock"} style={{ flex: 1, display: "flex", gap: 5, alignItems: "flex-start" }}> */}
-                  <>
-                    {e.textBlock &&
-                      e.textBlock.map((c, i: number) => (
-                        <span className="colorBlock" style={e.cssBlock ? e.cssBlock[i] : undefined}>
-                          {c}
-                        </span>
-                      ))}
-                    {e.contentBlock &&
-                      e.contentBlock.map((cb) => {
-                        // console.log("content block is", Array.isArray(cb), typeof cb, cb);
-
-                        if (Array.isArray(cb)) {
-                          return <Expander state={JSON.stringify(cb)} />
-                          return (
-                            <span style={{ whiteSpace: "normal", wordBreak: "break-all" }}>
-                              <span style={{ color: "orange", fontWeight: "bold" }}>Array</span>: {JSON.stringify(cb)}
-                            </span>
-                          )
-                        } else if (typeof cb === "object") {
-                          return <Expander state={JSON.stringify(cb)} />
-                          return (
-                            <span style={{ whiteSpace: "normal", wordBreak: "break-all" }}>
-                              <span style={{ color: "pink", fontWeight: "bold" }}>Object</span>: {JSON.stringify(cb)}
-                            </span>
-                          )
-                        }
-                        return <span style={{ whiteSpace: "normal", wordBreak: "break-all" }}>{JSON.stringify(cb)}</span>
-                      })}
-                  </>
-                  {/* </span> */}
-                </div>
-              ))}
-            </InfiniteScroll>
-          </div>
+        <div
+          style={{
+            width: "100%",
+            margin: "20px auto",
+            height: 23,
+            display: "flex",
+            gap: 8,
+            fontSize: "14px",
+            justifyContent: "flex-start",
+          }}
+        >
+          {selectedFilter.length > 0 &&
+            selectedFilter.map((sf) => (
+              <span style={{ background: "yellow", borderRadius: "3px 3px 3px 3px", padding: "2px", color: "black" }}>
+                {sf.field}: {sf.value}
+              </span>
+            ))}
         </div>
-      </header>
+
+        <div style={{ border: "2px solid white", padding: 20, minWidth: "100%", width: "80%", margin: "0 auto" }}>
+          <InfiniteScroll
+            dataLength={newList.length} //This is important field to render the next data
+            next={() => setPageNum(pageNum + 1)}
+            hasMore={hasMore}
+            loader={
+              <div style={{ display: "flex", justifyContent: "center", margin: 50 }}>
+                <CircularProgress />
+              </div>
+            }
+            endMessage={
+              <p style={{ textAlign: "center" }}>
+                <b>Yay! You have seen it all</b>
+              </p>
+            }
+          >
+            {newList.map((e, i) => (
+              <div
+                key={i + e.LOG_ID + "-log"}
+                style={{
+                  textAlign: "left",
+                  fontSize: "12px",
+                  width: "100%",
+                  // display: "inline-block",
+                  display: "flex",
+                  alignItems: "flex-start",
+                  flexWrap: "wrap",
+                  marginBottom: 10,
+                }}
+              >
+                <span key={e.LOG_ID + "-logid"} style={{ flex: 1, maxWidth: "45px" }}>
+                  [{e.LOG_ID}]
+                </span>
+                <span key={e.LOG_ID + "-timestamp"} style={{ flex: 1, maxWidth: "165px" }}>
+                  [{e.TIMESTAMP.toString()}]&nbsp;
+                </span>
+                <span key={e.LOG_ID + "-loglevel"} style={{ flex: 1, maxWidth: "50px" }}>
+                  <a href="#" className="logLevelLink" onClick={() => handleClick("LOG_LEVEL", e.LOG_LEVEL.toUpperCase())}>
+                    {e.LOG_LEVEL.toUpperCase()}
+                  </a>
+                  :&nbsp;
+                </span>
+                <span key={e.LOG_ID + "-session_id"} style={{ flex: 1, maxWidth: "250px" }}>
+                  <a href="#" className="logSessionIDLink" onClick={() => handleClick("SESSION_ID", e.SESSION_ID)}>
+                    {e.SESSION_ID}
+                  </a>
+                  &nbsp;
+                </span>
+                {/* <span key={e.LOG_ID + "-textblock"} style={{ flex: 1, display: "flex", gap: 5, alignItems: "flex-start" }}> */}
+                <>
+                  {e.textBlock &&
+                    e.textBlock.map((c, i: number) => (
+                      <span className="colorBlock" style={e.cssBlock ? e.cssBlock[i] : undefined}>
+                        {c}
+                      </span>
+                    ))}
+                  {e.contentBlock &&
+                    e.contentBlock.map((cb) => {
+                      // console.log("content block is", Array.isArray(cb), typeof cb, cb);
+
+                      if (Array.isArray(cb)) {
+                        return <Expander state={JSON.stringify(cb)} />
+                        return (
+                          <span style={{ whiteSpace: "normal", wordBreak: "break-all" }}>
+                            <span style={{ color: "orange", fontWeight: "bold" }}>Array</span>: {JSON.stringify(cb)}
+                          </span>
+                        )
+                      } else if (typeof cb === "object") {
+                        return <Expander state={JSON.stringify(cb)} />
+                        return (
+                          <span style={{ whiteSpace: "normal", wordBreak: "break-all" }}>
+                            <span style={{ color: "pink", fontWeight: "bold" }}>Object</span>: {JSON.stringify(cb)}
+                          </span>
+                        )
+                      }
+                      return <span style={{ whiteSpace: "normal", wordBreak: "break-all" }}>{JSON.stringify(cb)}</span>
+                    })}
+                </>
+                {/* </span> */}
+              </div>
+            ))}
+          </InfiniteScroll>
+        </div>
+      </Container>
+      {/* </header> */}
     </div>
   )
 }
