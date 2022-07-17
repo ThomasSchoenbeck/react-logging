@@ -30,19 +30,20 @@ export default function NavButton(props: Props) {
         sx={{
           minHeight: 48,
           justifyContent: props.open ? "initial" : "center",
-          px: 2.5,
+          px: 4.5,
         }}
         onClick={() => {
           console.log("props.name", props.name)
           props.setActiveRoute([props.linkTo]), navigate("/" + props.linkTo)
         }}
-        selected={props.activeRoute[0] === props.name}
+        selected={props.activeRoute[0] === props.linkTo}
       >
         <ListItemIcon
           sx={{
             minWidth: 0,
             mr: props.open ? 3 : "auto",
             justifyContent: "center",
+            color: "white",
           }}
         >
           {props.icon}

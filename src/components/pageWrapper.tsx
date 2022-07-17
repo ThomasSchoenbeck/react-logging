@@ -3,7 +3,7 @@ import LeftDrawer from "./leftDrawer"
 import TopAppBar from "./TopAppBar"
 import { styled } from "@mui/material/styles"
 
-import { BrowserRouter, Routes, Route } from "react-router-dom"
+import { Routes, Route } from "react-router-dom"
 import Logs from "../pages/logs"
 import { Box } from "@mui/material"
 import Apps from "../pages/apps"

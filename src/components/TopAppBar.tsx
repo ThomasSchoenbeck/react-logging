@@ -41,6 +41,7 @@ const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== "open",
 })<AppBarProps>(({ theme, open }) => ({
   zIndex: theme.zIndex.drawer - 1,
+  background: "#1c1f24",
   transition: theme.transitions.create(["width", "margin"], {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,
@@ -61,42 +62,49 @@ interface Props {
 }
 
 export default function TopAppBar(props: Props) {
+  function breadcrumb(i: number, value, e: string) {
+    if (i < value.activeRoute.length - 1) {
+      return (
+        <Link
+          key={"routeLink-" + e}
+          to={value.activeRoute.slice(0, i).join("/") + "/" + e}
+          onClick={() => value.setActiveRoute([...value.activeRoute.slice(0, i), e])}
+        >
+          <Typography variant="h6" noWrap component="div">
+            {e === "apps" ? "Applications" : e === "logs" ? "Logs" : e === "emails" ? "Email Templates" : e}
+          </Typography>
+        </Link>
+      )
+    } else {
+      return (
+        <span key={"routeLink-" + e} style={{ color: "lightblue" }}>
+          {e === "apps" ? "Applications" : e === "logs" ? "Logs" : e === "emails" ? "Email Templates" : e}
+        </span>
+      )
+    }
+  }
+
   return (
     <AppBar position="fixed" open={props.open}>
-      <Toolbar>
-        <IconButton
+      <Toolbar sx={{ marginLeft: 15 }}>
+        {/* <IconButton
           color="inherit"
           aria-label="open drawer"
           onClick={props.handleDrawerOpen}
           edge="start"
           sx={{
-            marginRight: 5,
+            marginLeft: "0",
+            marginRight: 7,
             ...(props.open && { display: "none" }),
           }}
         >
           <MenuIcon />
-        </IconButton>
+        </IconButton> */}
         {/* <Typography variant="h6" noWrap component="div">
           Mini variant drawer
         </Typography> */}
         <NavContext.Consumer>
-          {(value) => (
-            <Breadcrumbs aria-label="breadcrumb">
-              {value.activeRoute.map((e, i) => (
-                <>
-                  {i < value.activeRoute.length - 1 ? (
-                    <Link key={"routeLink-" + e} to={value.activeRoute.slice(0, i).join("/") + "/" + e} onClick={() => value.setActiveRoute([...value.activeRoute.slice(0, i), e])}>
-                      <Typography variant="h6" noWrap component="div">
-                        {e === "apps" ? "Applications" : e === "logs" ? "Logs" : e === "emails" ? "Email Templates" : e}
-                      </Typography>
-                    </Link>
-                  ) : (
-                    <span style={{ color: "lightblue" }}>{e === "apps" ? "Applications" : e === "logs" ? "Logs" : e === "emails" ? "Email Templates" : e}</span>
-                  )}
-                </>
-              ))}
-            </Breadcrumbs>
-          )}
+          {(value) => <Breadcrumbs aria-label="breadcrumb">{value.activeRoute.map((e, i) => breadcrumb(i, value, e))}</Breadcrumbs>}
         </NavContext.Consumer>
       </Toolbar>
     </AppBar>

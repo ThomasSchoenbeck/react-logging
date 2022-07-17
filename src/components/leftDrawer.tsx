@@ -23,6 +23,8 @@ const drawerWidth = 240
 
 const openedMixin = (theme: Theme): CSSObject => ({
   width: drawerWidth,
+  background: "#181a1f",
+  color: "white",
   transition: theme.transitions.create("width", {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.enteringScreen,
@@ -35,17 +37,21 @@ const closedMixin = (theme: Theme): CSSObject => ({
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,
   }),
+  background: "#181a1f",
+  color: "white",
   overflowX: "hidden",
-  width: `calc(${theme.spacing(7)} + 1px)`,
+  width: `calc(${theme.spacing(11)} + 1px)`,
   [theme.breakpoints.up("sm")]: {
-    width: `calc(${theme.spacing(8)} + 1px)`,
+    width: `calc(${theme.spacing(12)} + 1px)`,
   },
 })
 
 const DrawerHeader = styled("div")(({ theme }) => ({
   display: "flex",
   alignItems: "center",
-  justifyContent: "flex-end",
+  justifyContent: "center",
+  background: "#181a1f",
+  color: "white",
   padding: theme.spacing(0, 1),
   // necessary for content to be below app bar
   ...theme.mixins.toolbar,
@@ -78,7 +84,7 @@ export default function LeftDrawer(props: Props) {
   // const [activeRoute, setActiveRoute] = useState<string>("")
 
   return (
-    <Drawer variant="permanent" open={props.open} style={{ background: "darkgray" }}>
+    <Drawer variant="permanent" open={props.open}>
       <DrawerHeader>
         {props.open && <IconButton onClick={props.handleDrawerClose}>{theme.direction === "rtl" ? <ChevronRightIcon /> : <ChevronLeftIcon />}</IconButton>}
         {!props.open && <IconButton onClick={props.handleDrawerOpen}>{theme.direction === "rtl" ? <ChevronLeftIcon /> : <ChevronRightIcon />}</IconButton>}
@@ -117,6 +123,17 @@ export default function LeftDrawer(props: Props) {
           </List>
         )}
       </NavContext.Consumer>
+      <List sx={{ display: "flex", flexDirection: "column", gap: "10px", justifyContent: "center", alignItems: "center" }}>
+        <IconButton size="medium" style={{ background: "orange" }}>
+          <HomeIcon />
+        </IconButton>
+        <Button size="medium" variant="contained" style={{ background: "orange", padding: "16px", borderRadius: "10px" }}>
+          <AppsIcon style={{ background: "#181a1f", padding: "5px", borderRadius: "10px", boxSizing: "content-box" }} />
+        </Button>
+        <Button size="medium" variant="contained" disableElevation style={{ background: "#181a1f", padding: "16px", borderRadius: "10px" }}>
+          <AppsIcon style={{ background: "#181a1f", padding: "5px", borderRadius: "10px", boxSizing: "content-box" }} />
+        </Button>
+      </List>
     </Drawer>
   )
 }
