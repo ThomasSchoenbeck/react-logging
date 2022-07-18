@@ -9,6 +9,7 @@ import { Box, Container } from "@mui/material"
 import Apps from "../pages/apps"
 import NavStore from "../context/navContext"
 import Home from "../pages/home"
+import AppDetail from "../pages/appDetail"
 
 const DrawerHeader = styled("div")(({ theme }) => ({
   display: "flex",
@@ -42,6 +43,7 @@ export default function PageWrapper() {
               <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/apps" element={<Apps />} />
+                <Route path="/apps/:appID" element={<AppDetail />} />
                 <Route path="/logs" element={<Logs />} />
               </Routes>
             </Container>
