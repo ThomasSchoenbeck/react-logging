@@ -10,28 +10,28 @@ import Breadcrumbs from "@mui/material/Breadcrumbs"
 import { Link } from "react-router-dom"
 
 import "./topAppBar.css"
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 
 const drawerWidth = 240
 
-const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })<{
-  open?: boolean
-}>(({ theme, open }) => ({
-  flexGrow: 1,
-  padding: theme.spacing(3),
-  transition: theme.transitions.create("margin", {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen,
-  }),
-  marginLeft: `-${drawerWidth}px`,
-  ...(open && {
-    transition: theme.transitions.create("margin", {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-    marginLeft: 0,
-  }),
-}))
+// const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })<{
+//   open?: boolean
+// }>(({ theme, open }) => ({
+//   flexGrow: 1,
+//   padding: theme.spacing(3),
+//   transition: theme.transitions.create("margin", {
+//     easing: theme.transitions.easing.sharp,
+//     duration: theme.transitions.duration.leavingScreen,
+//   }),
+//   marginLeft: `-${drawerWidth}px`,
+//   ...(open && {
+//     transition: theme.transitions.create("margin", {
+//       easing: theme.transitions.easing.easeOut,
+//       duration: theme.transitions.duration.enteringScreen,
+//     }),
+//     marginLeft: 0,
+//   }),
+// }))
 
 interface AppBarProps extends MuiAppBarProps {
   open?: boolean
@@ -62,14 +62,12 @@ interface Props {
 }
 
 export default function TopAppBar(props: Props) {
+  const { activeRoute } = useContext(NavContext)
+
   function breadcrumb(i: number, value, e: string) {
-    if (i < value.activeRoute.length - 1) {
+    if (i < value.length - 1) {
       return (
-        <Link
-          key={"routeLink-" + e}
-          to={value.activeRoute.slice(0, i).join("/") + "/" + e}
-          onClick={() => value.setActiveRoute([...value.activeRoute.slice(0, i), e])}
-        >
+        <Link key={"routeLink-" + e} to={value.slice(0, i).join("/") + "/" + e}>
           <Typography variant="h6" noWrap component="div">
             {e === "apps" ? "Applications" : e === "logs" ? "Logs" : e === "emails" ? "Email Templates" : e}
           </Typography>
@@ -87,25 +85,10 @@ export default function TopAppBar(props: Props) {
   return (
     <AppBar position="fixed" open={props.open}>
       <Toolbar sx={{ marginLeft: 15 }}>
-        {/* <IconButton
-          color="inherit"
-          aria-label="open drawer"
-          onClick={props.handleDrawerOpen}
-          edge="start"
-          sx={{
-            marginLeft: "0",
-            marginRight: 7,
-            ...(props.open && { display: "none" }),
-          }}
-        >
-          <MenuIcon />
-        </IconButton> */}
-        {/* <Typography variant="h6" noWrap component="div">
-          Mini variant drawer
-        </Typography> */}
-        <NavContext.Consumer>
+        {activeRoute && <Breadcrumbs aria-label="breadcrumb">{activeRoute.map((e, i) => breadcrumb(i, activeRoute, e))}</Breadcrumbs>}
+        {/* <NavContext.Consumer>
           {(value) => <Breadcrumbs aria-label="breadcrumb">{value.activeRoute.map((e, i) => breadcrumb(i, value, e))}</Breadcrumbs>}
-        </NavContext.Consumer>
+        </NavContext.Consumer> */}
       </Toolbar>
     </AppBar>
   )

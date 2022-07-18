@@ -2,20 +2,21 @@ import ListItem from "@mui/material/ListItem"
 import ListItemButton from "@mui/material/ListItemButton"
 import ListItemIcon from "@mui/material/ListItemIcon"
 import ListItemText from "@mui/material/ListItemText"
-import { useEffect } from "react"
+import { useContext, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
+import { NavContext } from "../../context/navContext"
 
 interface Props {
   open: boolean
   name: string
   linkTo: string
   icon: JSX.Element
-  activeRoute: string[]
-  setActiveRoute: (v: string[]) => void
 }
 
 export default function NavButton(props: Props) {
   let navigate = useNavigate()
+
+  const { activeRoute } = useContext(NavContext)
 
   useEffect(() => {
     console.log("mount NavButton")
@@ -25,7 +26,7 @@ export default function NavButton(props: Props) {
   }, [])
 
   return (
-    <ListItem disablePadding sx={{ display: "block" }}>
+    <ListItem disablePadding sx={{ display: "block" }} className="mainNavButton">
       <ListItemButton
         sx={{
           minHeight: 48,
@@ -34,9 +35,9 @@ export default function NavButton(props: Props) {
         }}
         onClick={() => {
           console.log("props.name", props.name)
-          props.setActiveRoute([props.linkTo]), navigate("/" + props.linkTo)
+          navigate("/" + props.linkTo)
         }}
-        selected={props.activeRoute[0] === props.linkTo}
+        selected={activeRoute[0] === props.linkTo}
       >
         <ListItemIcon
           sx={{

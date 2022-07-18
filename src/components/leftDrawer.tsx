@@ -86,53 +86,39 @@ export default function LeftDrawer(props: Props) {
   return (
     <Drawer variant="permanent" open={props.open}>
       <DrawerHeader>
-        {props.open && <IconButton onClick={props.handleDrawerClose}>{theme.direction === "rtl" ? <ChevronRightIcon /> : <ChevronLeftIcon />}</IconButton>}
-        {!props.open && <IconButton onClick={props.handleDrawerOpen}>{theme.direction === "rtl" ? <ChevronLeftIcon /> : <ChevronRightIcon />}</IconButton>}
+        {props.open && (
+          <IconButton onClick={props.handleDrawerClose}>{theme.direction === "rtl" ? <ChevronRightIcon /> : <ChevronLeftIcon />}</IconButton>
+        )}
+        {!props.open && (
+          <IconButton onClick={props.handleDrawerOpen}>{theme.direction === "rtl" ? <ChevronLeftIcon /> : <ChevronRightIcon />}</IconButton>
+        )}
       </DrawerHeader>
 
-      <NavContext.Consumer>
-        {(value) => (
-          <List sx={{ display: "flex", flexDirection: "column", height: "calc(100% - 128px)", justifyContent: "center" }}>
-            <NavButton
-              key={"navBtn-home"}
-              name={"Home"}
-              linkTo={"home"}
-              icon={<HomeIcon />}
-              open={props.open}
-              activeRoute={value.activeRoute}
-              setActiveRoute={value.setActiveRoute}
-            />
-            <NavButton
-              key={"navBtn-apps"}
-              name={"Applications"}
-              linkTo={"apps"}
-              icon={<AppsIcon />}
-              open={props.open}
-              activeRoute={value.activeRoute}
-              setActiveRoute={value.setActiveRoute}
-            />
-            <NavButton
-              key={"navBtn-logs"}
-              name={"Logs"}
-              linkTo={"logs"}
-              icon={<SpeakerNotesIcon />}
-              open={props.open}
-              activeRoute={value.activeRoute}
-              setActiveRoute={value.setActiveRoute}
-            />
-          </List>
-        )}
-      </NavContext.Consumer>
+      <List sx={{ display: "flex", flexDirection: "column", height: "calc(100% - 128px)", justifyContent: "center" }}>
+        <NavButton key={"navBtn-home"} name={"Home"} linkTo={"home"} icon={<HomeIcon />} open={props.open} />
+        <NavButton key={"navBtn-apps"} name={"Applications"} linkTo={"apps"} icon={<AppsIcon />} open={props.open} />
+        <NavButton key={"navBtn-logs"} name={"Logs"} linkTo={"logs"} icon={<SpeakerNotesIcon />} open={props.open} />
+      </List>
       <List sx={{ display: "flex", flexDirection: "column", gap: "10px", justifyContent: "center", alignItems: "center" }}>
         <IconButton size="medium" style={{ background: "orange" }}>
           <HomeIcon />
         </IconButton>
         <Button size="medium" variant="contained" style={{ background: "orange", padding: "16px", borderRadius: "10px" }}>
-          <AppsIcon style={{ background: "#181a1f", padding: "5px", borderRadius: "10px", boxSizing: "content-box" }} />
+          <AppsIcon style={{ background: "#181a1f", color: "white", padding: "5px", borderRadius: "10px", boxSizing: "content-box" }} />
         </Button>
-        <Button size="medium" variant="contained" disableElevation style={{ background: "#181a1f", padding: "16px", borderRadius: "10px" }}>
-          <AppsIcon style={{ background: "#181a1f", padding: "5px", borderRadius: "10px", boxSizing: "content-box" }} />
-        </Button>
+
+        <List sx={{ width: "100%" }}>
+          <ListItem>
+            <Button className="sideNavButton" size="medium" variant="contained" disableElevation>
+              <AppsIcon />
+            </Button>
+          </ListItem>
+          <ListItem>
+            <Button className="sideNavButton" size="medium" variant="contained" disableElevation>
+              <SpeakerNotesIcon />
+            </Button>
+          </ListItem>
+        </List>
       </List>
     </Drawer>
   )

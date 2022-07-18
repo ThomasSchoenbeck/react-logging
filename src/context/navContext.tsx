@@ -29,12 +29,9 @@ export default function NavStore({ children }) {
   useEffect(() => {
     console.log("we are in location", location)
 
-    const currentRoutes = location.pathname.substring(1).split("/")
+    const routesFromURL = location.pathname.substring(1).split("/")
 
-    // if (currentRoutes[0] === "apps") currentRoutes[0] = "Applications"
-    // else if (currentRoutes[0] === "logs") currentRoutes[0] = "Logs"
-
-    if (activeRoute.length === 0) setActiveRoute(location.pathname.substring(1).split("/"))
+    setActiveRoute(routesFromURL)
   }, [location])
 
   // const value = useMemo<{ activeRoute: string; setActiveRoute: Dispatch<SetStateAction<string>> }>(() => ({ activeRoute, setActiveRoute }), [activeRoute])

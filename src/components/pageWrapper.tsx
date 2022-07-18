@@ -5,9 +5,10 @@ import { styled } from "@mui/material/styles"
 
 import { Routes, Route } from "react-router-dom"
 import Logs from "../pages/logs"
-import { Box } from "@mui/material"
+import { Box, Container } from "@mui/material"
 import Apps from "../pages/apps"
 import NavStore from "../context/navContext"
+import Home from "../pages/home"
 
 const DrawerHeader = styled("div")(({ theme }) => ({
   display: "flex",
@@ -37,11 +38,13 @@ export default function PageWrapper() {
         <Box component="main" sx={{ flexGrow: 1 }} className="App">
           <DrawerHeader />
           <div className="App">
-            <Routes>
-              <Route path="/" element={<></>}></Route>
-              <Route path="/apps" element={<Apps />} />
-              <Route path="/logs" element={<Logs />} />
-            </Routes>
+            <Container>
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/apps" element={<Apps />} />
+                <Route path="/logs" element={<Logs />} />
+              </Routes>
+            </Container>
           </div>
         </Box>
       </Box>

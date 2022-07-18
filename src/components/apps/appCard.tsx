@@ -17,20 +17,12 @@ interface Props {
 export default function AppCard(props: Props) {
   let navigate = useNavigate()
 
-  const { activeRoute } = useContext(NavContext)
-
-  useEffect(() => {
-    console.log("active route changed", activeRoute)
-  }, [activeRoute])
-
   return (
     <Card key={props.id} sx={{ maxWidth: 345 }}>
       <NavContext.Consumer>
         {(value) => (
           <CardActionArea
             onClick={() => {
-              console.log(value, [...value.activeRoute, props.id])
-              value.setActiveRoute([...value.activeRoute, props.id])
               navigate(props.id)
             }}
           >

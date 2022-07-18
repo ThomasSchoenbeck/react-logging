@@ -4,6 +4,30 @@
 // export as namespace log;
 // export = log;
 
+interface Window {
+  configData: {
+    api_base_url: string
+    debounce_delay: number
+    disableAdAuth: boolean
+    msalConfig: {
+      auth: {
+        clientId: string
+        authority: string
+        redirectUri: string
+        postLogoutRedirectUri: string
+      }
+      cache: {
+        cacheLocation: string
+        storeAuthStateInCookie: boolean
+      }
+      endpoints: {
+        [key: string]: string
+      }
+    }
+    mode: Environment
+  }
+}
+
 interface filter {
   field: string
   value: any
