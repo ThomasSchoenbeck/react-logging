@@ -14,7 +14,7 @@ import AppsIcon from "@mui/icons-material/Apps"
 import HomeIcon from "@mui/icons-material/Home"
 import AlarmIcon from "@mui/icons-material/Alarm"
 import { Button } from "@mui/material"
-import { useState } from "react"
+import { useContext, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import NavButton from "./leftDrawer/navButton"
 import { NavContext } from "../context/navContext"
@@ -83,15 +83,13 @@ export default function LeftDrawer(props: Props) {
   let navigate = useNavigate()
   // const [activeRoute, setActiveRoute] = useState<string>("")
 
+  const { activeRoute } = useContext(NavContext)
+
   return (
     <Drawer variant="permanent" open={props.open}>
       <DrawerHeader>
-        {props.open && (
-          <IconButton onClick={props.handleDrawerClose}>{theme.direction === "rtl" ? <ChevronRightIcon /> : <ChevronLeftIcon />}</IconButton>
-        )}
-        {!props.open && (
-          <IconButton onClick={props.handleDrawerOpen}>{theme.direction === "rtl" ? <ChevronLeftIcon /> : <ChevronRightIcon />}</IconButton>
-        )}
+        {props.open && <IconButton onClick={props.handleDrawerClose}>{theme.direction === "rtl" ? <ChevronRightIcon /> : <ChevronLeftIcon />}</IconButton>}
+        {!props.open && <IconButton onClick={props.handleDrawerOpen}>{theme.direction === "rtl" ? <ChevronLeftIcon /> : <ChevronRightIcon />}</IconButton>}
       </DrawerHeader>
 
       <List sx={{ display: "flex", flexDirection: "column", height: "calc(100% - 128px)", justifyContent: "center" }}>
@@ -109,12 +107,30 @@ export default function LeftDrawer(props: Props) {
 
         <List sx={{ width: "100%" }}>
           <ListItem>
-            <Button className="sideNavButton" size="medium" variant="contained" disableElevation>
+            <Button
+              className={"sideNavButton " + (activeRoute[0] === "apps" ? "Mui-selected" : "")}
+              size="medium"
+              variant="contained"
+              disableElevation
+              onClick={() => {
+                console.log("props.name", "apps")
+                navigate("/" + "apps")
+              }}
+            >
               <AppsIcon />
             </Button>
           </ListItem>
           <ListItem>
-            <Button className="sideNavButton" size="medium" variant="contained" disableElevation>
+            <Button
+              className={"sideNavButton " + (activeRoute[0] === "logs" ? "Mui-selected" : "")}
+              size="medium"
+              variant="contained"
+              disableElevation
+              onClick={() => {
+                console.log("props.name", "Logs")
+                navigate("/" + "logs")
+              }}
+            >
               <SpeakerNotesIcon />
             </Button>
           </ListItem>

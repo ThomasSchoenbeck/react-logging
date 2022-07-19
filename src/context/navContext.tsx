@@ -27,9 +27,8 @@ export default function NavStore({ children }) {
   let location = useLocation()
 
   useEffect(() => {
-    console.log("we are in location", location)
-
     const routesFromURL = location.pathname.substring(1).split("/")
+    console.log("we are in location", { location, routesFromURL })
 
     setActiveRoute(routesFromURL)
   }, [location])

@@ -66,9 +66,6 @@ const theme = createTheme({
             padding: "16px",
             borderRadius: "10px",
             backgroundColor: "#181a1f",
-            "&:hover": {
-              backgroundColor: palette.background,
-            },
             "&.Mui-selected": {
               backgroundColor: "#ffa500cc", //rgba(255,165,0,0.8)
             },
@@ -79,6 +76,9 @@ const theme = createTheme({
               padding: "5px",
               borderRadius: "10px",
               boxSizing: "content-box",
+            },
+            "&:hover": {
+              backgroundColor: palette.background,
             },
           },
         },
@@ -96,6 +96,13 @@ const theme = createTheme({
               backgroundColor: "rgba(255,165,0,0.3)",
             },
           },
+        },
+      },
+    },
+    MuiDialog: {
+      styleOverrides: {
+        root: {
+          // background: palette.background,
         },
       },
     },

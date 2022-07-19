@@ -42,9 +42,10 @@ export default function PageWrapper() {
             <Container>
               <Routes>
                 <Route path="/" element={<Home />} />
-                <Route path="/apps" element={<Apps />} />
+                <Route path="/apps" element={<Apps title={"Applications"} limit={50} />} />
                 <Route path="/apps/:appID" element={<AppDetail />} />
-                <Route path="/logs" element={<Logs />} />
+                <Route path="/logs" element={<Apps title={"Logs of Applications"} limit={50} />} />
+                <Route path="/logs/:appID" element={<Logs />} />
               </Routes>
             </Container>
           </div>

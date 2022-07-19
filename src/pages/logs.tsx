@@ -5,6 +5,7 @@ import Expander from "../components/expander"
 import FlexTest from "../components/flexTest"
 import { CircularProgress, Container } from "@mui/material"
 import InfiniteScroll from "react-infinite-scroll-component"
+import { useParams } from "react-router-dom"
 
 const prefix = ["Logs", "#75AB44"]
 const p = createPrefixGroup(prefix) as loggingGroupProps
@@ -20,6 +21,8 @@ export default function Logs() {
   const [selectedFilter, setSelectedFilter] = useState<filter[]>([])
 
   const [pageNum, setPageNum] = useState<number>(1)
+
+  const { appID } = useParams<{ appID: string }>()
 
   useEffect(() => {
     console.log(...p.p, "mount")
@@ -96,7 +99,7 @@ export default function Logs() {
 
   function getLogs(addLogs?: boolean) {
     setLoading(true)
-    fetch("http://localhost:8080/logs", {
+    fetch("http://localhost:8080/logs/" + appID, {
       method: "POST",
       body: JSON.stringify({
         parameters: {
