@@ -10,6 +10,7 @@ import Apps from "../pages/apps"
 import NavStore from "../context/navContext"
 import Home from "../pages/home"
 import AppDetail from "../pages/appDetail"
+import Feedback from "../pages/feedback"
 
 const DrawerHeader = styled("div")(({ theme }) => ({
   display: "flex",
@@ -42,10 +43,15 @@ export default function PageWrapper() {
             <Container>
               <Routes>
                 <Route path="/" element={<Home />} />
+                <Route path="/home" element={<Home />} />
                 <Route path="/apps" element={<Apps title={"Applications"} limit={50} />} />
                 <Route path="/apps/:appID" element={<AppDetail />} />
+                <Route path="/apps/:appID/logs" element={<Logs />} />
+                <Route path="/apps/:appID/feedback" element={<Feedback />} />
                 <Route path="/logs" element={<Apps title={"Logs of Applications"} limit={50} />} />
                 <Route path="/logs/:appID" element={<Logs />} />
+                <Route path="/feedback" element={<Apps title={"Feedback of Applications"} limit={50} />} />
+                <Route path="/feedback/:appID" element={<Feedback />} />
               </Routes>
             </Container>
           </div>

@@ -64,19 +64,28 @@ interface Props {
 export default function TopAppBar(props: Props) {
   const { activeRoute } = useContext(NavContext)
 
+  function routeToName(route: string) {
+    if (route === "apps") route = "Applications"
+    if (route === "logs") route = "Logs"
+    if (route === "feedback") route = "Feedback"
+    if (route === "emails") route = "Email Templates"
+
+    return route
+  }
+
   function breadcrumb(i: number, value, e: string) {
     if (i < value.length - 1) {
       return (
         <Link key={"routeLink-" + e} to={value.slice(0, i).join("/") + "/" + e}>
           <Typography variant="h6" noWrap component="div">
-            {e === "apps" ? "Applications" : e === "logs" ? "Logs" : e === "emails" ? "Email Templates" : e}
+            {routeToName(e)}
           </Typography>
         </Link>
       )
     } else {
       return (
         <span key={"routeLink-" + e} style={{ color: "lightblue" }}>
-          {e === "apps" ? "Applications" : e === "logs" ? "Logs" : e === "emails" ? "Email Templates" : e}
+          {routeToName(e)}
         </span>
       )
     }

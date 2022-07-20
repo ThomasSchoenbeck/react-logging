@@ -1,13 +1,18 @@
+import Box from "@mui/material/Box"
+import Button from "@mui/material/Button"
+import Chip from "@mui/material/Chip"
 import { useEffect, useState } from "react"
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 
 export default function AppDetail() {
+  let navigate = useNavigate()
+
   let { appID } = useParams<{ appID: string }>()
 
   const [app, setApp] = useState<apps | null>(null)
 
   function getAppByID(appID) {
-    fetch("http://localhost:8080/app/" + appID)
+    fetch("http://localhost:8080/apps/" + appID)
       .then((res) => res.json())
       .then((res) => {
         if (res !== null) {
@@ -36,8 +41,13 @@ export default function AppDetail() {
 
   return (
     <div>
-      appdetail
-      <h3>{app?.APP_NAME}</h3>
+      <h3>
+        Application: <Chip color="primary" label={app?.APP_NAME} />
+      </h3>
+      <Box sx={{ display: "flex", justifyContent: "center", gap: 2 }}>
+        <Button onClick={() => navigate("logs")}>Logs</Button>
+        <Button onClick={() => navigate("feedback")}>Feedback</Button>
+      </Box>
     </div>
   )
 }

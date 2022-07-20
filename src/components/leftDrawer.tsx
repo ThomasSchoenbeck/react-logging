@@ -10,6 +10,7 @@ import ListItemButton from "@mui/material/ListItemButton"
 import ListItemIcon from "@mui/material/ListItemIcon"
 import ListItemText from "@mui/material/ListItemText"
 import SpeakerNotesIcon from "@mui/icons-material/SpeakerNotes"
+import RateReviewIcon from "@mui/icons-material/RateReview"
 import AppsIcon from "@mui/icons-material/Apps"
 import HomeIcon from "@mui/icons-material/Home"
 import AlarmIcon from "@mui/icons-material/Alarm"
@@ -18,6 +19,7 @@ import { useContext, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import NavButton from "./leftDrawer/navButton"
 import { NavContext } from "../context/navContext"
+import NavRoundButton from "./leftDrawer/navRoundButton"
 
 const drawerWidth = 240
 
@@ -92,48 +94,17 @@ export default function LeftDrawer(props: Props) {
         {!props.open && <IconButton onClick={props.handleDrawerOpen}>{theme.direction === "rtl" ? <ChevronLeftIcon /> : <ChevronRightIcon />}</IconButton>}
       </DrawerHeader>
 
-      <List sx={{ display: "flex", flexDirection: "column", height: "calc(100% - 128px)", justifyContent: "center" }}>
+      {/* <List sx={{ display: "flex", flexDirection: "column", height: "calc(100% - 128px)", justifyContent: "center" }}>
         <NavButton key={"navBtn-home"} name={"Home"} linkTo={"home"} icon={<HomeIcon />} open={props.open} />
         <NavButton key={"navBtn-apps"} name={"Applications"} linkTo={"apps"} icon={<AppsIcon />} open={props.open} />
         <NavButton key={"navBtn-logs"} name={"Logs"} linkTo={"logs"} icon={<SpeakerNotesIcon />} open={props.open} />
-      </List>
-      <List sx={{ display: "flex", flexDirection: "column", gap: "10px", justifyContent: "center", alignItems: "center" }}>
-        <IconButton size="medium" style={{ background: "orange" }}>
-          <HomeIcon />
-        </IconButton>
-        <Button size="medium" variant="contained" style={{ background: "orange", padding: "16px", borderRadius: "10px" }}>
-          <AppsIcon style={{ background: "#181a1f", color: "white", padding: "5px", borderRadius: "10px", boxSizing: "content-box" }} />
-        </Button>
-
+      </List> */}
+      <List sx={{ display: "flex", flexDirection: "column", height: "calc(100% - 128px)", gap: "10px", justifyContent: "center", alignItems: "center" }}>
         <List sx={{ width: "100%" }}>
-          <ListItem>
-            <Button
-              className={"sideNavButton " + (activeRoute[0] === "apps" ? "Mui-selected" : "")}
-              size="medium"
-              variant="contained"
-              disableElevation
-              onClick={() => {
-                console.log("props.name", "apps")
-                navigate("/" + "apps")
-              }}
-            >
-              <AppsIcon />
-            </Button>
-          </ListItem>
-          <ListItem>
-            <Button
-              className={"sideNavButton " + (activeRoute[0] === "logs" ? "Mui-selected" : "")}
-              size="medium"
-              variant="contained"
-              disableElevation
-              onClick={() => {
-                console.log("props.name", "Logs")
-                navigate("/" + "logs")
-              }}
-            >
-              <SpeakerNotesIcon />
-            </Button>
-          </ListItem>
+          <NavRoundButton open={props.open} name={"Home"} route={"home"} icon={<HomeIcon />} />
+          <NavRoundButton open={props.open} name={"Apps"} route={"apps"} icon={<AppsIcon />} />
+          <NavRoundButton open={props.open} name={"Logs"} route={"logs"} icon={<SpeakerNotesIcon />} />
+          <NavRoundButton open={props.open} name={"Feedback"} route={"feedback"} icon={<RateReviewIcon />} />
         </List>
       </List>
     </Drawer>

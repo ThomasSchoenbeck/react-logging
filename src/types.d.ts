@@ -55,3 +55,12 @@ interface logs {
   cssBlock?: any[]
   contentBlock?: any[]
 }
+
+interface feedback {
+  FEEDBACK_ID: number
+  APP_ID: string
+  FEEDBACK_TITLE: string
+  FEEDBACK_MESSAGE: string
+  FEEDBACK_POSITIVE_NEGATIVE: boolean | null
+  FEEDBACK_RAITING: string | null
+}
