@@ -1,4 +1,7 @@
-import { Box, Button, CircularProgress, Container, List } from "@mui/material"
+import Box from "@mui/material/Box"
+import Button from "@mui/material/Button"
+import CircularProgress from "@mui/material/CircularProgress"
+import List from "@mui/material/List"
 import AppCard from "../components/apps/appCard"
 
 import AddIcon from "@mui/icons-material/Add"
@@ -118,24 +121,22 @@ export default function Apps(props: Props) {
   return (
     <div>
       {/* <header className="App-header"> */}
-      <Container>
-        <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-          <h3>{props.title}</h3>
-          <List>
-            <Button color="primary" variant="contained" startIcon={<AddIcon />} onClick={handleOpenCreateAppDialog}>
-              new
-            </Button>
-          </List>
-        </Box>
-        <Box sx={{ display: "flex", gap: 5 }}>
-          {loading && <CircularProgress />}
+      <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+        <h3>{props.title}</h3>
+        <List>
+          <Button color="primary" variant="contained" startIcon={<AddIcon />} onClick={handleOpenCreateAppDialog}>
+            new
+          </Button>
+        </List>
+      </Box>
+      <Box sx={{ display: "flex", gap: 5 }}>
+        {loading && <CircularProgress />}
 
-          {list.map((e) => (
-            <AppCard key={"app-" + e.APP_ID} id={e.APP_ID} name={e.APP_NAME} desc={e.APP_DESC} logo={e.APP_LOGO} />
-          ))}
-        </Box>
-        <CreateAppDialog open={openCreateAppDialog} handleClose={handleCloseCreateAppDialog} handleCreate={handleCreateApp} />
-      </Container>
+        {list.map((e) => (
+          <AppCard key={"app-" + e.APP_ID} id={e.APP_ID} name={e.APP_NAME} desc={e.APP_DESC} logo={e.APP_LOGO} />
+        ))}
+      </Box>
+      <CreateAppDialog open={openCreateAppDialog} handleClose={handleCloseCreateAppDialog} handleCreate={handleCreateApp} />
     </div>
   )
 }

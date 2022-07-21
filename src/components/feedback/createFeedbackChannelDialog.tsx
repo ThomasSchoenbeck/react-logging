@@ -8,12 +8,13 @@ import TextField from "@mui/material/TextField"
 import { useState } from "react"
 
 interface Props {
+  appID: string
   open: boolean
   handleClose: () => void
   handleCreate: (v: string) => void
 }
 
-export default function CreateAppDialog(props: Props) {
+export default function FeedbackChannelDialog(props: Props) {
   const [appName, setAppName] = useState<string>("")
 
   function handleClose() {
@@ -28,10 +29,17 @@ export default function CreateAppDialog(props: Props) {
   }
 
   return (
-    <Dialog open={props.open} onClose={props.handleClose} aria-labelledby="create-app-dialog-title" aria-describedby="create-app-dialog-description">
-      <DialogTitle id="create-app-dialog-title">{"Create New App"}</DialogTitle>
+    <Dialog
+      open={props.open}
+      onClose={props.handleClose}
+      aria-labelledby="create-feedback-channel-dialog-title"
+      aria-describedby="create-feedback-channel-dialog-description"
+    >
+      <DialogTitle id="create-feedback-channel-dialog-title">
+        {"Create New Feedback Channel for App"} {props.appID}
+      </DialogTitle>
       <DialogContent>
-        <DialogContentText id="create-app-dialog-description">Set the name of the new app.</DialogContentText>
+        <DialogContentText id="create-feedback-channel-dialog-description">Set the name of the new Feedback Channel.</DialogContentText>
 
         <TextField
           autoFocus
@@ -40,8 +48,8 @@ export default function CreateAppDialog(props: Props) {
             setAppName(event.target.value)
           }}
           margin="dense"
-          id="app_name"
-          label="App Name"
+          id="channel_name"
+          label="Feedback Channel Name"
           type="text"
           fullWidth
           variant="standard"

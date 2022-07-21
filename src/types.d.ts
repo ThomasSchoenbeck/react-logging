@@ -56,8 +56,16 @@ interface logs {
   contentBlock?: any[]
 }
 
+interface feedbackChannel {
+  CHANNEL_ID: number
+  APP_ID: string
+  CHANNEL_NAME: string
+  CHANNEL_DESC: string | null
+  CHANNEL_ENDPOINT: string
+}
 interface feedback {
   FEEDBACK_ID: number
+  CHANNEL_ID: number
   APP_ID: string
   FEEDBACK_TITLE: string
   FEEDBACK_MESSAGE: string
