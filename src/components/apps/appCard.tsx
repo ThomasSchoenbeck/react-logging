@@ -37,7 +37,7 @@ export default function AppCard(props: Props) {
                 {props.name}
               </Typography>
               <Typography variant="body2" color="text.secondary">
-                {props.desc}
+                {props.desc} {props.id}
               </Typography>
             </CardContent>
           </CardActionArea>

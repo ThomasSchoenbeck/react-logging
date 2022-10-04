@@ -17,12 +17,14 @@ export const palette = {
   secondary: "#6F909F",
   warning: "#FF3300",
   background: "#282c34",
+  paperBackground: "#353a46",
   action: "#00979E",
   disabledBg: "#CBCFD2",
   disabledFg: "#788C94",
   inputsBorder: "#CBCFD2",
   iconButtonFg: "#788C94",
   tableHeaderBg: "#CBCFD2",
+  text: "#fff",
 }
 
 const theme = createTheme({
@@ -81,6 +83,10 @@ const theme = createTheme({
               backgroundColor: palette.background,
             },
           },
+          "&:disabled": {
+            background: "#333",
+            color: "#898989",
+          },
         },
       },
     },
@@ -103,6 +109,15 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           // background: palette.background,
+        },
+      },
+    },
+    MuiPaper: {
+      styleOverrides: {
+        root: {
+          background: palette.paperBackground,
+          color: palette.text,
+          // padding: "25px",
         },
       },
     },

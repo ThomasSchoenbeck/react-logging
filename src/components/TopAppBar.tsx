@@ -93,7 +93,7 @@ export default function TopAppBar(props: Props) {
 
   return (
     <AppBar position="fixed" open={props.open}>
-      <Toolbar sx={{ marginLeft: 15 }}>
+      <Toolbar sx={{ marginLeft: 12 }}>
         {activeRoute && <Breadcrumbs aria-label="breadcrumb">{activeRoute.map((e, i) => breadcrumb(i, activeRoute, e))}</Breadcrumbs>}
         {/* <NavContext.Consumer>
           {(value) => <Breadcrumbs aria-label="breadcrumb">{value.activeRoute.map((e, i) => breadcrumb(i, value, e))}</Breadcrumbs>}
